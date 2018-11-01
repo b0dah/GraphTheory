@@ -69,7 +69,7 @@ void WritingFromFileToMatrix(string file_path, int *n)
         b--;
         
         paths_matrix[a][b] = w;
-        paths_matrix[b][a] = w;
+        //paths_matrix[b][a] = w;
     }
     input_file.close();
 }
@@ -120,7 +120,11 @@ void FillingNextMatrix(int n)
 void getShortestPath(int u, int v)
 {
     cout << " Path from "<< u+1 << " to " << v+1<<" :  ";
-    if (min_paths_matrix[u][v] == INF ) cout << "No path there"<<endl;
+    if (min_paths_matrix[u][v] == INF )
+    {
+        cout << "No path there"<<endl;
+        return;
+    }
     
     int c = u;
     while (c != v)
@@ -179,7 +183,8 @@ int main()
     
     
     for (int i=0;i<n;i++) // вывод готовых путей
-        for (int j=i+1;j<n;j++) 
+        for (int j=0;j<n;j++)
+            if (i!=j)
                 getShortestPath(i, j);
 }
 
