@@ -7,12 +7,13 @@
  
  Форд-бэллман
  */
-//hjhj
+//psya
 
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include "math.h"
+
 
 using namespace std;
 #define input_file_path "input.txt"
