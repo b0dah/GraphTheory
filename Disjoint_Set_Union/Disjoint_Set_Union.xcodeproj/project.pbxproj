@@ -25,7 +25,6 @@
 /* Begin PBXFileReference section */
 		BCD27615218758BA00580828 /* Disjoint_Set_Union */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Disjoint_Set_Union; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCD27618218758BA00580828 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		BCD2761F2187593F00580828 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = input.txt; path = "../../../../../Library/Developer/Xcode/DerivedData/Disjoint_Set_Union-fyvlsgtaefdyapgecnpgvwuieyit/Build/Products/input.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				BCD27618218758BA00580828 /* main.cpp */,
-				BCD2761F2187593F00580828 /* input.txt */,
 			);
 			path = Disjoint_Set_Union;
 			sourceTree = "<group>";

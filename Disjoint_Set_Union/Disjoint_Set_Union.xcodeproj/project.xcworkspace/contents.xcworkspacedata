@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Disjoint_Set_Union.xcodeproj">
+      location = "group:../../../../Library/Developer/Xcode/DerivedData/Disjoint_Set_Union-ansgowviikvahxgykgcclnzuewfj/Build/Products/input.txt">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../Library/Developer/Xcode/DerivedData/Disjoint_Set_Union-ansgowviikvahxgykgcclnzuewfj/Build/Products/Debug/input.txt">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

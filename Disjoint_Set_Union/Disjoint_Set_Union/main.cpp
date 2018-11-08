@@ -69,29 +69,18 @@ void WritingFromFileToArray(string input_file_path, vector <int> (*p) )
     }
 }
 
-//=======================================
+//================================================================
 int main(int argc, const char * argv[]) {
     WritingFromFileToArray("input.txt", &parent);
     
-    //for (int i=0; i<parent.size(); i++)
-    //    cout << "  " << i+1 << " -- " << parent[i] + 1<< endl;
-    for (int i=0;i<parent[i]; i++)
-    {
-        parent[i] = (find_root(i) == i) ? find_root(i) : i;
-    }
-    
-    // kstd::for_each(parent.begin(), parent.end(), [](int i){ } )
-    // out
-   // for (int i=0; i<parent.size(); i++)
-    //    cout << "  " << i+1 << " -- " << parent[i] + 1<< endl;
-    
-    // out for every vertex
+// ===================== out for every vertex =====================
     for (int i=0; i<parent.size(); i++)
     {
         cout << "  " << i+1 << " -- ";
         for (int j=0; j < parent.size(); j++)
-            if (( i!=j ) && ( parent[i] == parent[j] ))
+            if (( i!=j ) &&     (   find_root(parent[i]) == find_root(parent[j])   )) // если один предок
                 cout << j+1 << " ";
+        cout << endl;
     }
     
     return 0;
