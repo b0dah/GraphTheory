@@ -23,10 +23,7 @@ vector <vector <int> > paths_matrix;
 vector <vector <int>> min_paths_matrix;
 vector <vector<int>> next_vertex;
 
-int CountOfDigitsInNumber(int a)
-{
-    return (a!=0) ? ( log10(a) + 1) : 1;
-}
+int CountOfDigitsInNumber(int a){ return (a!=0) ? ( log10(a) + 1) : 1; }
 
 int min(int a, int b)
 {
