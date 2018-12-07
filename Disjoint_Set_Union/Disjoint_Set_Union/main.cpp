@@ -3,7 +3,7 @@
 //  Disjoint_Set_Union
 //
 //  Created by Иван on 29/10/2018.
-//  Copyright © 2018 Иван. All rights reserved.
+//  Copyright © 2018 Иван. 
 //
 
 #include <iostream>
