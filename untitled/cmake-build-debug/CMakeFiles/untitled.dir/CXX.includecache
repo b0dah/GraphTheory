@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/bodah/dev/GraphTheory/untitled/main.cpp
+set
+-
+queue
+-
+vector
+-
+array
+-
+stack
+-
+iostream
+-
+
