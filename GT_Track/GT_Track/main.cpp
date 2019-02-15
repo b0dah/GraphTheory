@@ -16,17 +16,18 @@ using namespace std;
 
 int n,m,k;
 int idir, jdir;
-vector<vector<char>> Track;
+//vector<vector<char>> Track;
+char Track[50][50];
 
 struct vertex {
-    char value = ' ';
+    string value = " ";
     vertex *parent;
     vertex *first = NULL, *second = NULL;
 };
 
 vertex *Tree = NULL; // инициализация дерева
 
-void WritingFromFileToMatrix(string file_path, int &n, int &m, int &k)
+/*void WritingFromFileToMatrix(string file_path, int &n, int &m, int &k)
 {
     //-------------------------------------------------------
     ifstream input_file;
@@ -50,7 +51,7 @@ void WritingFromFileToMatrix(string file_path, int &n, int &m, int &k)
         }
     }
     input_file.close();
-}
+}*/
 
 void matrixOutPut(vector <vector<char>> a) {
     
@@ -74,7 +75,7 @@ void add_node(int i, int j, vertex *&Tree) { // ветвление, перево
     if (NULL == Tree)             // Если дерева НЕТ, то ложим семечко
     {
         Tree = new vertex;              //Выделяем память под звено дерева
-        Tree->value = Track[i][j];                  //Записываем данные в звено
+        Tree->value = "";                  //Записываем 'S'(пустоту) в звено
         (Tree->first) = (Tree->second) = NULL;   //Подзвенья инициализируем пустотой во избежание ошибок
         
         Tree->parent = Tree;
@@ -84,7 +85,7 @@ void add_node(int i, int j, vertex *&Tree) { // ветвление, перево
     {
         Tree->first = new vertex;               //Выделяем память левому подзвену. Именно подзвену, а не просто звену
         Tree->first->first = Tree->first->second = NULL; //У левого подзвена будут свои левое и правое подзвенья, инициализируем их пустотой
-        Tree->first->value = Track[i + idir][j];                   //Записываем в левое подзвено записываемый элемент
+        Tree->first->value = Tree->value + Track[i + idir][j];                   //Записываем в левое подзвено записываемый элемент
         
         Tree->first->parent = Tree;
         
@@ -95,7 +96,7 @@ void add_node(int i, int j, vertex *&Tree) { // ветвление, перево
     {
         Tree->second = new vertex;
         Tree->second->first = Tree->second->second = NULL;
-        Tree->second->value = Track[i][j + jdir];
+        Tree->second->value = Tree->value + Track[i][j + jdir];
         
         Tree->second->parent = Tree;
         
@@ -115,7 +116,7 @@ void show_tree(vertex *&Tree)              //Функция показа
     }
 }
 
-void observe_tree(vertex *&Tree)              //Функция обхода
+/*void observe_tree(vertex *&Tree)              //Функция обхода
 {
     if (Tree != NULL) //(фест нейбор не налл И секонд нейбор не налл)              //Пока не встретится пустое звено
     {
@@ -124,10 +125,10 @@ void observe_tree(vertex *&Tree)              //Функция обхода
             vertex *TreeCopy = Tree;
             set <char> s;
             
-            while (TreeCopy->value != 'S')
+            while (TreeCopy->value != "")
             {
                 cout << TreeCopy->value << "-";
-                s.insert(TreeCopy->value);
+                //s.insert((TreeCopy->value));
                 TreeCopy = TreeCopy->parent;
             }
             if ( s.size() > k ) cout << "cut";
@@ -138,19 +139,86 @@ void observe_tree(vertex *&Tree)              //Функция обхода
         observe_tree(Tree->second); // (от второго соседа соседа)            //Рекурсивная функци для вывода правого поддерева
     }
 }
+*/
+
+bool need_to_cut(vertex *Tree)
+{
+    set <char> s;
+    
+    for (int ind=0; ind<Tree->value.length();ind++)   // количество уникальных символов в пути
+        s.insert(Tree->value[ind]);
+
+        if ( s.size() > k ) return true;
+        else return false;
+}
+
+
+void cut_tree(vertex *&Tree)              //Функция обхода
+{
+    if (Tree != NULL )
+    {
+        /*1*/if (Tree->first != NULL && need_to_cut(Tree->first))
+        {
+                //cout << "cut";
+                //cout << Tree->first->value << "-";
+                Tree->first = NULL;  // cutting the rope
+        }
+            //cout << endl;
+        /*2*/if (Tree->second != NULL && need_to_cut(Tree->second))
+        {
+                //cout << "cut";
+                //cout << Tree->second->value << "-";
+                Tree->second = NULL; // cutting
+        }
+        
+            cut_tree(Tree->first);  // (от первого соседа соседа)            //Рекурсивная функция для вывода левого поддерева
+            cut_tree(Tree->second); // (от второго соседа соседа)            //Рекурсивная функци для вывода правого поддерева
+    }
+}
+
+/*string min_string(string s1, string s2)
+{
+    for (int i=0; i<s1.length();i++)
+    {
+        if (s1[i]<s2[i]) {
+            return s1;
+            break;
+        }
+    }
+    return s2;
+}*/
+
+void comparison(vertex *Tree, set <string> &s)
+{
+    
+     if (Tree != NULL ) {
+        if ( Tree->value.length() == (n+m-3) ) {
+            //cout << "======== THE ANSWER IS: =========="<<endl;
+            //cout << "<<"<<Tree->value << ">>"<<endl;
+            s.insert(Tree->value); //**
+        }
+    //-------------------------
+        comparison(Tree->first, *&s);  // (от первого соседа соседа)            //Рекурсивная функция для вывода левого поддерева
+        comparison(Tree->second, *&s); // (от второго соседа соседа)            //Рекурсивная функци для вывода правого поддерева
+    }
+}
 
 int main(int argc, const char * argv[]) {
 // insert code here...
     
-    WritingFromFileToMatrix("input.txt", n, m, k);
+    //WritingFromFileToMatrix("input.txt", n, m, k);
+    cin>>n>>m>>k; //input
+    for (int i=0; i<n; i++) {
+        cin>>Track[i];
+    }
     
     //matrixOutPut(Track);
 //===================================================================
 
     int i, j, is, js, it, jt;
     
-    for (int i=0;i<Track.size();i++) {
-        for (int j=0;j<Track[i].size();j++) {
+    for (int i=0;i<n;i++) {
+        for (int j=0;j<m;j++) {
             if (Track[i][j] == 'S') { is = i; js = j; }
             if (Track[i][j] == 'T') { it = i; jt = j; }
         }
@@ -163,12 +231,19 @@ int main(int argc, const char * argv[]) {
 //*1*----- to Tree -----------------------------------------------
       
     add_node(is,js, Tree); // от 'S'
+    cut_tree(Tree);
     
-    //show_tree(Tree);
+   // string str="";
+   // for (int ind = 0;ind<(m+n-3);ind++){
+    //    str += "z";
+    //}
+    set <string> str_set;
+    comparison(Tree, str_set);
     
-    observe_tree(Tree);
-    
-    
+    //cout <<endl;
+    if (!str_set.empty())
+        cout<< *str_set.begin() << endl;
+    else cout << "-1";
     
     
 //----------------------------------------------------------------
