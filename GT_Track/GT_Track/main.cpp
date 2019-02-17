@@ -14,7 +14,7 @@
 
 using namespace std;
 
-int n,m,k;
+int n,m,k, is, js, it, jt;
 int idir, jdir;
 //vector<vector<char>> Track;
 char Track[50][50];
@@ -67,7 +67,7 @@ int sign(int x) { return (x<0) ? (-1) : (1); }
 
 bool safe (int x, int y)
 {
-    return (x>=0 && x<n && y>=0 && y<m && Track[x][y]!='S' && Track[x][y]!='T');
+    return (x>=0 && x<n && y>=0 && y<m && Track[x][y]!='S' && Track[x][y]!='T' && ((x<=is && x<=it) || (x>=is && x>=it)) );
     //while (! (i == it && j == jt)); //|| (abs(i - it) == 1 && j == jt) || (i == it && abs(j - jt) == 1 ) ));
 }
 
@@ -105,7 +105,7 @@ void add_node(int i, int j, vertex *&Tree) { // ветвление, перево
     
 }
 
-void show_tree(vertex *&Tree)              //Функция показа
+/*void show_tree(vertex *&Tree)              //Функция показа
 {
     if (Tree != NULL)               //Пока не встретится пустое звено
     {
@@ -114,7 +114,7 @@ void show_tree(vertex *&Tree)              //Функция показа
         show_tree(Tree->first);               //Рекурсивная функция для вывода левого поддерева
         show_tree(Tree->second);               //Рекурсивная функци для вывода правого поддерева
     }
-}
+}*/
 
 /*void observe_tree(vertex *&Tree)              //Функция обхода
 {
@@ -192,7 +192,7 @@ void comparison(vertex *Tree, set <string> &s)
 {
     
      if (Tree != NULL ) {
-        if ( Tree->value.length() == (n+m-3) ) {
+         if ( Tree->value.length() == (abs(it-is)+abs(jt-js)-1)) { //(n+m-3) ) {
             //cout << "======== THE ANSWER IS: =========="<<endl;
             //cout << "<<"<<Tree->value << ">>"<<endl;
             s.insert(Tree->value); //**
@@ -215,7 +215,7 @@ int main(int argc, const char * argv[]) {
     //matrixOutPut(Track);
 //===================================================================
 
-    int i, j, is, js, it, jt;
+    //int i, j;
     
     for (int i=0;i<n;i++) {
         for (int j=0;j<m;j++) {
@@ -233,10 +233,6 @@ int main(int argc, const char * argv[]) {
     add_node(is,js, Tree); // от 'S'
     cut_tree(Tree);
     
-   // string str="";
-   // for (int ind = 0;ind<(m+n-3);ind++){
-    //    str += "z";
-    //}
     set <string> str_set;
     comparison(Tree, str_set);
     
