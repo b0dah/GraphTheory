@@ -67,24 +67,25 @@ string bfs ()
 {
     Node r={sx, sy, distance(sx, sy, tx, ty), 0, ""};
     
-    priority_queue<Node, vector<Node>, compare> que; // очередь
+    priority_queue <Node, vector<Node>, compare> que; // очередь (по убыв)
     
     set <pair<int, pair<int, int> > > s;
     
     que.push(r);
     
     while (que.empty()==false) {
-        r=que.top();
-        que.pop();
+        r=que.top();  // взяли
+        que.pop();  // удалили из очереди
+        
         if (a[r.x][r.y]=='T') {
             return r.s;
         }
         
-        if (s.find(make_pair(r.mask, make_pair(r.x, r.y)))!=s.end()) {
+        if (s.find(make_pair(r.mask, make_pair(r.x, r.y)))!=s.end()) { // есть во мн-ве
             continue;
         }
         
-        s.insert(make_pair(r.mask, make_pair(r.x, r.y)));
+        s.insert(make_pair(r.mask, make_pair(r.x, r.y))); // иначе - вставляем во множество
         
         for (int i=0; i<4; i++) {
             int row=r.x+dx[i];
@@ -96,7 +97,7 @@ string bfs ()
             if (row==tx && col==ty) {
                 return r.s;
             }
-            
+        
             int next=r.mask | (1<<(a[row][col]-97));
             
             if (countBit(next)<=k) {
