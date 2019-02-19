@@ -20,15 +20,17 @@ int idir, jdir;
 int dx[]={0, 0, 1, -1};
 int dy[]={1, -1, 0, 0};
 
+
+
 //vector<vector<char>> Track;
-char Track[50][50];
+string Track[55];
 
 struct vertex {
     string value = " ";
-    //vertex *parent;
-    //vertex *first = NULL, *second = NULL;
-    vertex *neigh[4] = {NULL, NULL, NULL, NULL};
-    //vector <vertex> nei = {NULL, NULL, NULL, NULL};
+    //vertex *parent; //vertex *first = NULL, *second = NULL;
+    vector <vertex*> neigh = {NULL, NULL, NULL, NULL};
+    vertex *parent = NULL;
+    vector < pair<int, int> > prev_cells;
 };
 
 vertex *Tree = NULL; // инициализация дерева
@@ -59,7 +61,7 @@ vertex *Tree = NULL; // инициализация дерева
     input_file.close();
 }*/
 
-void matrixOutPut(vector <vector<char>> a) {
+/*void matrixOutPut(vector <vector<char>> a) {
     
     for (int i=0;i<a.size();i++) {
         for (int j=0;j<a[i].size();j++) {
@@ -67,7 +69,7 @@ void matrixOutPut(vector <vector<char>> a) {
         }
         cout << endl;
     }
-}
+}*/
 
 int sign(int x) { return (x<0) ? (-1) : (1); }
 
@@ -111,24 +113,49 @@ bool safe (int x, int y)
     
 }*/
 
+bool pair_in_vector (vector<pair<int,int>> a, pair<int, int> pr) {
+    for (int i=0;i<a.size();i++){
+        if ( a[i].first == pr.first && a[i].second == pr.second ) return true;
+   
+    }
+    return false;
+}
+
 void add_node(int x, int y, vertex *&Tree) { // +****************************
+    
     if (NULL == Tree)             // Если дерева НЕТ, то ложим семечко
     {
         Tree = new vertex;              //Выделяем память под звено дерева
         Tree->value = "";                  //Записываем 'S'(пустоту) в звено
-        //Tree->neigh = {NULL, NULL, NULL, NULL};   //Подзвенья инициализируем пустотой во избежание ошибок
+        Tree->neigh = {NULL, NULL, NULL, NULL};   //Подзвенья инициализируем пустотой во избежание ошибок
+        Tree->parent = Tree; //***
+        Tree->prev_cells.push_back({x,y});
+        //cout << "jopr";
     }
     
     
     for (int i=0;i<4;i++) {
+        
         int row = x + dx[i];
         int col = y + dy[i];
+       
         
-        if ( safe(row, col) ) // напр на нового соседа
-        {
+        if (safe(row, col) && !(row==Tree->prev_cells.end()->first && col==Tree->prev_cells.end()->second) ) {   // напр на нового соседа
+            
+            //if (find(Tree->prev_cells.begin(), Tree->prev_cells.end(), {row, col}) != Tree->prev_cells.end() )
+            if (pair_in_vector(Tree->prev_cells, {row, col}))
+                    continue;
+            
             Tree->neigh[i] = new vertex;               //Выделяем память i подзвену. Именно подзвену, а не просто звену
-            //Tree->neigh[i]->neigh = {NULL, NULL, NULL, NULL}; //У левого подзвена будут свои подзвенья, инициализируем их пустотой
-            Tree->neigh[i]->value = Tree->value + Track[row][col];                   //Записываем в левое подзвено записываемый элемент
+            Tree->neigh[i]->neigh = {NULL, NULL, NULL, NULL}; //У  подзвена будут свои подзвенья, инициализируем их пустотой
+            Tree->neigh[i]->value = Tree->value + Track[row][col];                   //Записываем в подзвено  элемент
+            
+            Tree->neigh[i]->prev_cells = Tree->prev_cells;
+            Tree->neigh[i]->prev_cells.push_back({row, col});
+            
+                    //cout<< Tree->neigh[i]->value<<endl;
+            Tree->neigh[i]->parent = Tree; //***
+            if (Track[row][col] == 'T') return;
             
             add_node(row, col, Tree->neigh[i]);
         }
@@ -178,7 +205,7 @@ bool need_to_cut(vertex *Tree)
     for (int ind=0; ind<Tree->value.length();ind++)   // количество уникальных символов в пути
         s.insert(Tree->value[ind]);
 
-        if ( s.size() > k ) return true;
+        if ( s.size() > k+1 ) return true;
         else return false;
 }
 
@@ -218,7 +245,9 @@ void comparison(vertex *Tree, set <string> &char_set, int &min_length/* m*n */)
          for (int i=0;i<4;i++) {
              if (  (Tree->value[Tree->value.length()-1] == 'T') && (Tree->value.length()<min_length) ) {
                  min_length = Tree->value.length();
-                 char_set.insert(Tree->value); //**
+                        string str_copy = Tree->value;  // ****
+                        str_copy.resize(str_copy.size()-1);
+                 char_set.insert(str_copy); //**
                  //cout << "<<"<<Tree->value << ">>"<<endl;
              }
     //-------------------------
@@ -230,10 +259,38 @@ void comparison(vertex *Tree, set <string> &char_set, int &min_length/* m*n */)
 int main(int argc, const char * argv[]) {
     
     //WritingFromFileToMatrix("input.txt", n, m, k);
+
     cin>>n>>m>>k; //input
-    for (int i=0; i<n; i++) {
-        cin>>Track[i];
-    }
+    for (int i=0; i<n; i++)
+            cin>>Track[i];
+    
+    
+   /* n=5, m=3, k=2;
+    
+    
+    Track[0][0] = 'S';
+    Track[0][1] = 'b';
+    Track[0][2] = 'a';
+    
+    
+    Track[1][0] = 'c';
+    Track[1][1] = 'c';
+    Track[1][2] = 'c';
+  
+    
+    Track[2][0] = 'a';
+    Track[2][1] = 'a';
+    Track[2][2] = 'c';
+    
+    
+    Track[3][0] = 'c';
+    Track[3][1] = 'c';
+    Track[3][2] = 'c';
+    
+    Track[4][0] = 'a';
+    Track[4][1] = 'b';
+    Track[4][2] = 'T';*/
+    
     
     //matrixOutPut(Track);
 //===================================================================
@@ -245,21 +302,23 @@ int main(int argc, const char * argv[]) {
     } // directions
     
     //length = abs(it - is) + abs(jt - js) + 1;
-    idir = sign(it - is);
-    jdir = sign(jt - js);
+    //idir = sign(it - is);
+    //jdir = sign(jt - js);
     
 //*1*----- to Tree -----------------------------------------------
-      
     add_node(is,js, Tree); // от 'S'
+//*2*----- cuttng ---
     cut_tree(Tree);
-    
+
+//*3* ----- min length and lexicography min--------
     set <string> str_set;
-    int min_length = m*n-2;
+    int min_length = m*n;
     comparison(Tree, str_set, min_length);
-    
+
+//** --- OUTPUT
     //cout <<endl;
     if (!str_set.empty())
-        cout<< *str_set.begin() << endl;
+        cout<<*str_set.begin() << endl;
     else cout << "-1";
     
     
