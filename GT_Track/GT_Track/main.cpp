@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include <fstream>
+//#include <fstream>
 #include <string>
 #include <vector>
 #include <set>
@@ -27,9 +27,10 @@ string Track[55];
 
 struct vertex {
     string value = " ";
-    //vertex *parent; //vertex *first = NULL, *second = NULL;
-    vector <vertex*> neigh = {NULL, NULL, NULL, NULL};
-    vertex *parent = NULL;
+                //vertex *parent; //vertex *first = NULL, *second = NULL;
+    //vector <vertex*> neigh = {NULL, NULL, NULL, NULL};
+    vertex *neigh[4] = {NULL, NULL, NULL, NULL};
+    //vertex *parent = NULL;
     vector < pair<int, int> > prev_cells;
 };
 
@@ -113,7 +114,7 @@ bool safe (int x, int y)
     
 }*/
 
-bool pair_in_vector (vector<pair<int,int>> a, pair<int, int> pr) {
+bool pair_in_vector (vector<pair<int,int> > a, pair<int, int> pr) {
     for (int i=0;i<a.size();i++){
         if ( a[i].first == pr.first && a[i].second == pr.second ) return true;
    
@@ -127,9 +128,12 @@ void add_node(int x, int y, vertex *&Tree) { // +****************************
     {
         Tree = new vertex;              //Выделяем память под звено дерева
         Tree->value = "";                  //Записываем 'S'(пустоту) в звено
-        Tree->neigh = {NULL, NULL, NULL, NULL};   //Подзвенья инициализируем пустотой во избежание ошибок
-        Tree->parent = Tree; //***
-        Tree->prev_cells.push_back({x,y});
+        //Tree->neigh = {NULL, NULL, NULL, NULL};   //Подзвенья инициализируем пустотой во избежание ошибок
+                    for (int ind=0;ind<4;ind++){
+                        Tree->neigh[ind] = NULL; //=====**
+                    }
+        //Tree->parent = Tree; //***
+        Tree->prev_cells.push_back(make_pair(x,y));
         //cout << "jopr";
     }
     
@@ -140,21 +144,24 @@ void add_node(int x, int y, vertex *&Tree) { // +****************************
         int col = y + dy[i];
        
         
-        if (safe(row, col) && !(row==Tree->prev_cells.end()->first && col==Tree->prev_cells.end()->second) ) {   // напр на нового соседа
+        if (safe(row, col)) { //&& !(row==Tree->prev_cells.end()->first && col==Tree->prev_cells.end()->second) ) {   // напр на нового соседа
             
             //if (find(Tree->prev_cells.begin(), Tree->prev_cells.end(), {row, col}) != Tree->prev_cells.end() )
-            if (pair_in_vector(Tree->prev_cells, {row, col}))
+            if (pair_in_vector(Tree->prev_cells, make_pair(row, col)))
                     continue;
             
             Tree->neigh[i] = new vertex;               //Выделяем память i подзвену. Именно подзвену, а не просто звену
-            Tree->neigh[i]->neigh = {NULL, NULL, NULL, NULL}; //У  подзвена будут свои подзвенья, инициализируем их пустотой
+            //Tree->neigh[i]->neigh = {NULL, NULL, NULL, NULL}; //У  подзвена будут свои подзвенья, инициализируем их пустотой
+                for (int ind=0;ind<4;ind++){
+                    Tree->neigh[i]->neigh[ind] = NULL; //=====**
+                }
             Tree->neigh[i]->value = Tree->value + Track[row][col];                   //Записываем в подзвено  элемент
             
             Tree->neigh[i]->prev_cells = Tree->prev_cells;
-            Tree->neigh[i]->prev_cells.push_back({row, col});
+            Tree->neigh[i]->prev_cells.push_back(make_pair(row, col));
             
-                    cout<< Tree->neigh[i]->value<<endl;
-            Tree->neigh[i]->parent = Tree; //***
+                    //cout<< Tree->neigh[i]->value<<endl;
+            //Tree->neigh[i]->parent = Tree; //***
             if (Track[row][col] == 'T') return;
             
             add_node(row, col, Tree->neigh[i]);
@@ -209,6 +216,14 @@ bool need_to_cut(vertex *Tree)
         else return false;
 }
 
+/*void del(Node *&Tree){
+    if (Tree != NULL)                //Пока не встретится пустое звено
+    {
+        del(Tree->l);                //Рекурсивная функция прохода по левому поддереву
+        del(Tree->r);                //Рекурсивная функци для прохода по правому поддереву
+        delete Tree;                 //Убиваем конечный элемент дерева
+        Tree = NULL;                 //Может и не обязательно, но плохого не будет
+    }*/
 
 void cut_tree(vertex *&Tree)              //Функция обхода
 {
@@ -219,7 +234,10 @@ void cut_tree(vertex *&Tree)              //Функция обхода
         
                 //cout << "cut";
                 //cout << Tree->first->value << "-";
-                Tree->neigh[i] = NULL;  // cutting the rope
+                
+                        //delete Tree->neigh[i];
+                        Tree->neigh[i] = NULL;  // cutting the rope
+            
                 //cout << endl;
      
             cut_tree(Tree->neigh[i]);  // (от первого соседа соседа)            //Рекурсивная функция для поддерева
@@ -243,7 +261,7 @@ void comparison(vertex *Tree, set <string> &char_set, int &min_length/* m*n */)
 {
      if (Tree != NULL ) {
          for (int i=0;i<4;i++) {
-             if (  (Tree->value[Tree->value.length()-1] == 'T') && (Tree->value.length()<min_length) ) {
+             if ( ( Tree->value!= "") && (Tree->value[Tree->value.length()-1] == 'T') && (Tree->value.length()<=min_length) ) {
                  min_length = Tree->value.length();
                         string str_copy = Tree->value;  // ****
                         str_copy.resize(str_copy.size()-1);
@@ -259,7 +277,11 @@ void comparison(vertex *Tree, set <string> &char_set, int &min_length/* m*n */)
 int main(int argc, const char * argv[]) {
     
     //WritingFromFileToMatrix("input.txt", n, m, k);
-
+    /*Tree->neigh.resize(4);
+    for (int ind=0;ind<4;ind++){
+        Tree->neigh[ind] = NULL; //=====**
+    }*/
+ //------------------------------
     cin>>n>>m>>k; //input
     for (int i=0; i<n; i++)
             cin>>Track[i];
@@ -321,7 +343,7 @@ int main(int argc, const char * argv[]) {
 
 //** --- OUTPUT
     //cout <<endl;
-    cout<<"->";
+    //cout<<"=|>";
     if (!str_set.empty())
         cout<<*str_set.begin() << endl;
     else cout << "-1";
