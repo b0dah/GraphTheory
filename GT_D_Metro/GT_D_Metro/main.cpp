@@ -34,7 +34,7 @@ set < int > cycle;
 stack <int> s;
 bool cycle_found = false;
 
-int dfs(int v, int parent = -1 ){   // v — вершина, в которой мы сейчас находимся
+int dfs(int v, int parent = -1 ){ // v — вершина, в которой мы сейчас находимся
     graph[v].color = grey;
     
     s.push(v); // добавляем очередную вершину в стек
@@ -63,7 +63,7 @@ int dfs(int v, int parent = -1 ){   // v — вершина, в которой �
 
 int bfs(int v){
     stack <int> s;
-    set<int> visited;
+    set <int> visited;
     
     s.push(v);
     visited.insert(v);
@@ -79,8 +79,8 @@ int bfs(int v){
                 visited.insert(it);
                 if ( graph[it].color == white )       // Если значение dist не определено (если не на цикле лежит)
                     graph[it].dist = graph[current].dist + 1;
-                else
-                   graph[it].dist = min(graph[it].dist, graph[current].dist + 1);
+                //else
+                //   graph[it].dist = min(graph[it].dist, graph[current].dist + 1);
             }
         
     }
@@ -160,8 +160,8 @@ int main()
     graph[4].neighbours.insert(1);
     graph[1].neighbours.insert(4);
 //======================================================================
-    dfs(0);
     
+    dfs(0);
     
     for (int i = 0; i < n; i++ )
         graph[i].color = ( cycle.find(i) == cycle.end() ) ? white : grey; // если не в цикле, то белые

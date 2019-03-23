@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BCD27619218758BA00580828 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCD27618218758BA00580828 /* main.cpp */; };
-		BCF507C9222598BC00E55EA1 /* GT_related_comps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCF507C7222598BC00E55EA1 /* GT_related_comps.cpp */; };
+		BCF507EA22259DBA00E55EA1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCF507E922259DBA00E55EA1 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BCD27613218758BA00580828 /* CopyFiles */ = {
+		BCF507E422259DBA00E55EA1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -24,14 +23,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BCD27615218758BA00580828 /* Disjoint_Set_Union */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Disjoint_Set_Union; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCD27618218758BA00580828 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		BCF507C7222598BC00E55EA1 /* GT_related_comps.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GT_related_comps.cpp; path = ../../GT_related_comps.cpp; sourceTree = "<group>"; };
-		BCF507C8222598BC00E55EA1 /* GT_related_comps.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GT_related_comps.hpp; path = ../../GT_related_comps.hpp; sourceTree = "<group>"; };
+		BCF507E622259DBA00E55EA1 /* GT_Bosses */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GT_Bosses; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCF507E922259DBA00E55EA1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		BCD27612218758BA00580828 /* Frameworks */ = {
+		BCF507E322259DBA00E55EA1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,97 +38,94 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BCD2760C218758BA00580828 = {
+		BCF507DD22259DBA00E55EA1 = {
 			isa = PBXGroup;
 			children = (
-				BCD27617218758BA00580828 /* Disjoint_Set_Union */,
-				BCD27616218758BA00580828 /* Products */,
+				BCF507E822259DBA00E55EA1 /* GT_Bosses */,
+				BCF507E722259DBA00E55EA1 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		BCD27616218758BA00580828 /* Products */ = {
+		BCF507E722259DBA00E55EA1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BCD27615218758BA00580828 /* Disjoint_Set_Union */,
+				BCF507E622259DBA00E55EA1 /* GT_Bosses */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BCD27617218758BA00580828 /* Disjoint_Set_Union */ = {
+		BCF507E822259DBA00E55EA1 /* GT_Bosses */ = {
 			isa = PBXGroup;
 			children = (
-				BCD27618218758BA00580828 /* main.cpp */,
-				BCF507C7222598BC00E55EA1 /* GT_related_comps.cpp */,
-				BCF507C8222598BC00E55EA1 /* GT_related_comps.hpp */,
+				BCF507E922259DBA00E55EA1 /* main.cpp */,
 			);
-			path = Disjoint_Set_Union;
+			path = GT_Bosses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BCD27614218758BA00580828 /* Disjoint_Set_Union */ = {
+		BCF507E522259DBA00E55EA1 /* GT_Bosses */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BCD2761C218758BA00580828 /* Build configuration list for PBXNativeTarget "Disjoint_Set_Union" */;
+			buildConfigurationList = BCF507ED22259DBA00E55EA1 /* Build configuration list for PBXNativeTarget "GT_Bosses" */;
 			buildPhases = (
-				BCD27611218758BA00580828 /* Sources */,
-				BCD27612218758BA00580828 /* Frameworks */,
-				BCD27613218758BA00580828 /* CopyFiles */,
+				BCF507E222259DBA00E55EA1 /* Sources */,
+				BCF507E322259DBA00E55EA1 /* Frameworks */,
+				BCF507E422259DBA00E55EA1 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Disjoint_Set_Union;
-			productName = Disjoint_Set_Union;
-			productReference = BCD27615218758BA00580828 /* Disjoint_Set_Union */;
+			name = GT_Bosses;
+			productName = GT_Bosses;
+			productReference = BCF507E622259DBA00E55EA1 /* GT_Bosses */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		BCD2760D218758BA00580828 /* Project object */ = {
+		BCF507DE22259DBA00E55EA1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Иван";
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Иван Романов";
 				TargetAttributes = {
-					BCD27614218758BA00580828 = {
-						CreatedOnToolsVersion = 10.0;
+					BCF507E522259DBA00E55EA1 = {
+						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
-			buildConfigurationList = BCD27610218758BA00580828 /* Build configuration list for PBXProject "Disjoint_Set_Union" */;
+			buildConfigurationList = BCF507E122259DBA00E55EA1 /* Build configuration list for PBXProject "GT_Bosses" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = BCD2760C218758BA00580828;
-			productRefGroup = BCD27616218758BA00580828 /* Products */;
+			mainGroup = BCF507DD22259DBA00E55EA1;
+			productRefGroup = BCF507E722259DBA00E55EA1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BCD27614218758BA00580828 /* Disjoint_Set_Union */,
+				BCF507E522259DBA00E55EA1 /* GT_Bosses */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		BCD27611218758BA00580828 /* Sources */ = {
+		BCF507E222259DBA00E55EA1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCD27619218758BA00580828 /* main.cpp in Sources */,
-				BCF507C9222598BC00E55EA1 /* GT_related_comps.cpp in Sources */,
+				BCF507EA22259DBA00E55EA1 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		BCD2761A218758BA00580828 /* Debug */ = {
+		BCF507EB22259DBA00E55EA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -190,7 +184,7 @@
 			};
 			name = Debug;
 		};
-		BCD2761B218758BA00580828 /* Release */ = {
+		BCF507EC22259DBA00E55EA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -242,7 +236,7 @@
 			};
 			name = Release;
 		};
-		BCD2761D218758BA00580828 /* Debug */ = {
+		BCF507EE22259DBA00E55EA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -250,7 +244,7 @@
 			};
 			name = Debug;
 		};
-		BCD2761E218758BA00580828 /* Release */ = {
+		BCF507EF22259DBA00E55EA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -261,25 +255,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BCD27610218758BA00580828 /* Build configuration list for PBXProject "Disjoint_Set_Union" */ = {
+		BCF507E122259DBA00E55EA1 /* Build configuration list for PBXProject "GT_Bosses" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BCD2761A218758BA00580828 /* Debug */,
-				BCD2761B218758BA00580828 /* Release */,
+				BCF507EB22259DBA00E55EA1 /* Debug */,
+				BCF507EC22259DBA00E55EA1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BCD2761C218758BA00580828 /* Build configuration list for PBXNativeTarget "Disjoint_Set_Union" */ = {
+		BCF507ED22259DBA00E55EA1 /* Build configuration list for PBXNativeTarget "GT_Bosses" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BCD2761D218758BA00580828 /* Debug */,
-				BCD2761E218758BA00580828 /* Release */,
+				BCF507EE22259DBA00E55EA1 /* Debug */,
+				BCF507EF22259DBA00E55EA1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = BCD2760D218758BA00580828 /* Project object */;
+	rootObject = BCF507DE22259DBA00E55EA1 /* Project object */;
 }

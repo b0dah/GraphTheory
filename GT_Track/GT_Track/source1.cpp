@@ -51,7 +51,7 @@ bool safe (int x, int y)
     return (x>=0 && x<n && y>=0 && y<m && a[x][y]!='S');
 }
 
-int countBit (int n)
+int countBit (int n) // единииц в двоичной записи
 {
     int ans=0;
     while (n>0) {
@@ -81,7 +81,7 @@ string bfs ()
             return r.s;
         }
         
-        if (s.find(make_pair(r.mask, make_pair(r.x, r.y)))!=s.end()) { // есть во мн-ве
+        if (s.find(make_pair(r.mask, make_pair(r.x, r.y)))!=s.end()) { // есть во мн-ве ==) уже были
             continue;
         }
         
@@ -94,15 +94,19 @@ string bfs ()
             if (safe(row, col)==false) {
                 continue;
             }
+            
             if (row==tx && col==ty) {
                 return r.s;
             }
         
-            int next=r.mask | (1<<(a[row][col]-97));
+            int next=r.mask | (1 << (a[row][col]-97) ); // единицу сдвигаю
             
             if (countBit(next)<=k) {
                 Node temp;
-                temp.x=row; temp.y=col; temp.s=r.s+a[row][col];
+                temp.x=row; temp.y=col;
+                
+                temp.s=r.s+a[row][col];
+                
                 temp.d=distance(row, col, tx, ty)+r.s.length();
                 temp.mask=next;
                 que.push(temp);
@@ -132,7 +136,7 @@ int main ()
             }
         }
     }
-    //------------------------------------
+//------------------------------------
     cout<<bfs();
     return 0;
 }
